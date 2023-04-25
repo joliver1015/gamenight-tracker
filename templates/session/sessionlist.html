@@ -1,0 +1,58 @@
+{% extends 'base.html' %} 
+
+{% block title %} {{user.username}}'s Session List {% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        <h2>Session List</h2>
+    </div>
+    {% if user %}
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Game Name</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Players</th>
+                        <th scope="col">Winner(s):</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for session in sessions %}
+                        <tr>
+                            <th scope="row"><a href="/session/{{ session.session_id }}">{{ session.game_name() }}</a></th>
+                            <td>{{ session.date }}</td>
+                            <td>
+                                {% for player in session.players %}
+                                    <a href="/player/{{ player.player_id }}">{{ player.player_name }}</a>
+                                {% endfor %}
+                            </td>
+                            <td>
+                                {% if session.winners %}
+                                    {% for winner in session.winners %}
+                                        {{winner.winner_name }}
+                                    {% endfor %}
+                                {% else %}
+                                    <p>No winner added</p>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div>
+            <div>
+                <h4>You must be logged into an account to view this</h4>
+            </div>
+            <div>
+                <a href="/login">Login</a>
+                <a href="/register">Create Account</a>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

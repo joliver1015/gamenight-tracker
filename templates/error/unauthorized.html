@@ -1,0 +1,15 @@
+{% extends 'base.html' %} 
+
+{% block title %} Must be signed in {% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        <h4>You must be logged into an account to view this</h4>
+    </div>
+    <div>
+        <a href="/login">Login</a>
+        <a href="/register">Create Account</a>
+    </div>
+</div>
+{% endblock %}

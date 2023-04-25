@@ -1,0 +1,60 @@
+{% extends 'base.html' %} 
+
+{% block title %} {game.game_name} {game.date} {% endblock %}
+
+{% block content %}
+<div>
+    <div>
+        <h3>{{ session.game_name() }} on {{ session.date }}</h3>
+    </div>
+    <div>
+        {% if session.winners %}
+            {% for winner in session.winners %}
+                {{ winner.winner_name }}
+            {% endfor %}
+        {% else %}
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addWinner">Add Winner(s)</button>
+        {% endif %}
+    </div>
+    <div>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSession">Delete Game</button>
+    </div>
+    <div class="modal fade" id="addWinner" role="dialog" aria-labelledby="addWinnerLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addWinnerLabel">Add New Player</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        {% for field in form if field.widget.input_type != 'hidden' %}
+                            {% for error in field.errors %}
+                                <span> {{ error }}</span>
+                            {% endfor %}
+                            <div>
+                                {{ field(placeholder=field.label.text, class="form-control") }}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="deleteSession" role="dialog" aria-labelledby="deleteSessionLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="deleteSessionLabel">Delete Game</h4>
+                </div>
+                <div class="modal-body">
+                    <a class="btn btn-danger" href="/session/{{ session.session_id }}/deletesession">Delete Game</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

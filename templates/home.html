@@ -1,0 +1,67 @@
+{% extends 'base.html' %} 
+
+{% block title %} Gamenight! {% endblock %}
+
+{% block content %}
+<div>
+    {% if g.user %}
+    <div>
+        <h1>{{g.user.username}}'s Dashboard</h1>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <th scope="col">Recent Games</th>
+            </thead>
+            <tbody>
+                {% for game in recent_games %}
+                    <tr>
+                        <td>
+                            <a href="/session/{{ game.session_id }}">{{ game.game_name() }}</a>
+                        </td>
+                        <td>
+                            <p>{{ game.date }}</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>   
+    <div>
+        <table class="table">
+            <thead>
+                <th scope="col">Most Played Games</th>
+            </thead>
+            <tbody>
+                {% for game in top_games %}
+                <tr>
+                    <td>
+                        <p>{{ game.game_name }}</p>
+                    </td>
+                    <td>
+                        <p>{{ game.games_played }}</p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div>
+        <div>
+            <h1>Welcome to Gamenight Tracker!</h1>
+        </div>
+        <div>
+            <h4>Track all of your board games and see who's the best among your friends and family!</h4>
+            <div>
+                <div>
+                    <p>You can <a href="/login">login here</a> or <a href="/register">create an account</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+
+{% endblock %}

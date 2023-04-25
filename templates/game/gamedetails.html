@@ -1,0 +1,89 @@
+{% extends 'base.html' %} 
+{% block title %} {game.game_name} {% endblock %}
+{% block content %}
+<div>
+    <div>
+        <h2>{{ game.game_name }}</h2>
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addSession">Add New Game</button>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Players</th>
+                    <th scope="col">Winner(s):</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for session in game.sessions %}
+                    <tr>
+                        <td><a href="/session/{{ session.session_id }}">{{ session.date }}</td>
+                        <td>
+                            {% for player in session.players %}
+                                <a href="/player/{{ player.player_id }}">{{ player.player_name }}</a>
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if session.winners %}
+                                {% for winner in session.winners %}
+                                    {{winner.winner_name }}
+                                {% endfor %}
+                            {% else %}
+                                <p>No winner added</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <div>
+            <h3>Leaderboard:</h3>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Player</th>
+                    <th scope="col">Wins</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for k,v in game.leaderboard() %}
+                    <tr>
+                        <td>{{ k }}</td>
+                        <td>{{ v }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="addSession" role="dialog" aria-labelledby="addSessionLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="addSessionLabel">Add New Player</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        {{ form.hidden_tag() }}
+                        {% for field in form if field.widget.input_type != 'hidden' %}
+                            {% for error in field.errors %}
+                                <span> {{ error }}</span>
+                            {% endfor %}
+                            <div>
+                                {{ field(placeholder=field.label.text, class="form-control") }}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

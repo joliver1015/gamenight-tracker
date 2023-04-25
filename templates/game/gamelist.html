@@ -1,0 +1,67 @@
+{% extends 'base.html' %} 
+{% block title %} {{g.user.username}}'s Game List {% endblock %}
+{% block content %}
+<div>
+    <div>
+        <h2>Game List</h2>
+    </div>
+    {% if g.user %}
+        <div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addGame">Add New Game</button>
+        </div>
+        <div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Game Name</th>
+                        <th scope="col">Most Wins</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for game in games %}
+                        <tr>
+                            <th scope="row"><a href="/game/{{ game.game_id }}">{{ game.game_name }}</a></th>
+                            <td scope="row">{{ game.best_player() }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="modal fade" id="addGame" role="dialog" aria-labelledby="addGameLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="addGameLabel">Add New Player</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST">
+                            {{ form.hidden_tag() }}
+                            {% for field in form if field.widget.input_type != 'hidden' %}
+                                {% for error in field.errors %}
+                                    <span> {{ error }}</span>
+                                {% endfor %}
+                                <div>
+                                    {{ field(placeholder=field.label.text, class="form-control") }}
+                                </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div>
+            <div>
+                <h4>You must be logged into an account to view this</h4>
+            </div>
+            <div>
+                <a href="/login">Login</a>
+                <a href="/register">Create Account</a>
+            </div>
+        </div>
+    {% endif %}
+
+</div>
+{% endblock %}

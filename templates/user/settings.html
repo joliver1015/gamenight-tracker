@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %} {{ user.username }}'s Settings {% endblock %}
+{% block content %}
+<div>
+    <div>
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#changePassword">Change Password</button>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDelete">Delete Account</button>
+    </div>
+    <div class="modal fade" id="changePassword" role="dialog" aria-labelledby="changePasswordLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="changePasswordLabel">Change Password</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="POST">
+                        {{ password_form.hidden_tag() }}
+                        {% for field in password_form if field.widget.input_type != 'hidden' %}
+                            {% for error in field.errors %}
+                                <span> {{ error }}</span>
+                            {% endfor %}
+                            <div>
+                                {{ field(placeholder=field.label.text, class="form-control") }}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="ntn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="confirmDeleteLabel">Delete Account?</h4>
+                </div>
+                <div class="modal-body">
+                    <a class="btn btn-danger" href="/confirm-delete">Delete</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
