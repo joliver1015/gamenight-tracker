@@ -28,14 +28,23 @@
                     <th scope="col">Wins</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for k,v in player.top_games() %}
+            {% if not no_games %}
+                <tbody>
+                    {% for k,v in player.top_games() %}
+                        <tr>
+                            <td>{{k}}</td>
+                            <td>{{v}}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            {% else %}
+                <tbody>
                     <tr>
-                        <td>{{k}}</td>
-                        <td>{{v}}</td>
+                        <td>No games played</td>
+                        <td></td>
                     </tr>
-                {% endfor %}
-            </tbody>
+                </tbody>
+            {% endif %}
         </table>
     </div>
     <div>

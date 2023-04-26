@@ -51,6 +51,7 @@
                     <th scope="col">Wins</th>
                 </tr>
             </thead>
+            {% if not no_games %}
             <tbody>
                 {% for k,v in game.leaderboard() %}
                     <tr>
@@ -59,6 +60,14 @@
                     </tr>
                 {% endfor %}
             </tbody>
+            {% else %}
+            <tbody>
+                <tr>
+                    <td>No games played</td>
+                    <td></td>
+                </tr>
+            </tbody>
+            {% endif %}
         </table>
     </div>
     <div class="modal fade" id="addSession" role="dialog" aria-labelledby="addSessionLabel" aria-hidden="true">

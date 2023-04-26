@@ -121,8 +121,12 @@ def player_list():
 @app.route('/player/<player_id>')
 def player_details(player_id):
     player = Player.query.get_or_404(player_id)
-    last_ten = recent_games(player)
-    return render_template("player/playerdetail.html", player=player, last_ten=last_ten)
+    if len(player.sessions) > 0:
+        last_ten = recent_games(player)
+        return render_template("player/playerdetail.html", player=player, last_ten=last_ten)
+    else:
+        no_games = True
+        return render_template("player/playerdetail.html", player=player, no_games=no_games)
 
 @app.route('/gamelist', methods = ["GET", "POST"])
 def game_list():
@@ -145,7 +149,12 @@ def game_details(game_id):
         players = form.players.data
         add_session(user, game, date, players)
         return redirect(url_for('game_details', game_id=game_id))
-    return render_template('game/gamedetails.html', user=user, game=game, form=form)
+    if len(game.sessions) > 0:
+        return render_template('game/gamedetails.html', user=user, game=game, form=form)
+    else:
+        no_games = True
+        return render_template('game/gamedetails.html', user=user, game=game, form=form, no_games=no_games)
+
 
 @app.route('/sessionlist', methods=["GET","POST"])
 def session_list():
