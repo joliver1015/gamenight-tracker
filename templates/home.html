@@ -21,7 +21,7 @@
                             <a href="/session/{{ game.session_id }}">{{ game.game_name() }}</a>
                         </td>
                         <td>
-                            <p>{{ game.date }}</p>
+                            <p>{{ game.format_date() }}</p>
                         </td>
                     </tr>
                 {% endfor %}

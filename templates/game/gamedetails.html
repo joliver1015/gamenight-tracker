@@ -20,7 +20,7 @@
             <tbody>
                 {% for session in game.sessions %}
                     <tr>
-                        <td><a href="/session/{{ session.session_id }}">{{ session.date }}</td>
+                        <td><a href="/session/{{ session.session_id }}">{{ session.format_date() }}</td>
                         <td>
                             {% for player in session.players %}
                                 <a href="/player/{{ player.player_id }}">{{ player.player_name }}</a>

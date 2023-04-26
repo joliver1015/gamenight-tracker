@@ -1,4 +1,5 @@
 import math
+import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 
@@ -147,6 +148,11 @@ class Session(db.Model):
     def game_name(self):
         game = Game.query.get(self.game_id)
         return game.game_name
+    
+    def format_date(self):
+        game_date = self.date
+        formatted_date = datetime.date.strftime(game_date, "%m/%d/%Y")
+        return formatted_date
 
 class Winner(db.Model):
     __tablename__= 'winners'
