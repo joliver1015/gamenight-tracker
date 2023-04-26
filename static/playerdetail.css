@@ -5,6 +5,9 @@
 }
 
 .player-intro {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     margin-top: 25px;
     text-align: center;
 }
@@ -13,13 +16,20 @@
     margin-bottom: 20px;
 }
 
-.stat {
-    margin: 10px;
+.player-stats {
+    align-self: center;
+    margin-top: 10px;
+    width: 30%;
+    border: 2px solid;
 }
 
-.stat p {
+.stat {
+    padding-top: 5px;
+    border: 1px solid;
+    margin: 10px;
     font-weight: bold;
 }
+
 
 .best-game {
     margin-top: 20px;
@@ -32,8 +42,11 @@
     justify-content: space-between;
 }
 
-.table-container {
-    
+.title-container {
+    margin: auto;
+}
+
+.table-container { 
     width: 100%;
 }
 
