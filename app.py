@@ -155,7 +155,6 @@ def game_details(game_id):
         no_games = True
         return render_template('game/gamedetails.html', user=user, game=game, form=form, no_games=no_games)
 
-
 @app.route('/sessionlist', methods=["GET","POST"])
 def session_list():
     user = g.user

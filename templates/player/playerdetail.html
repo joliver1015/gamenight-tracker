@@ -3,25 +3,32 @@
 {% block title %} {{ player.player_name }}'s Stats {% endblock %}
 
 {% block content %}
-<div>
-    <div>
-        <div>
+<div class="container">
+    <div class="player-intro">
+        <div class="player-title">
             <h2>{{ player.player_name }}</h2>
         </div>
-        <div>
-            <h4>Total Wins</h4>
-            <p>{{ player.win_count() }}</p>
-            <h4>Total Win Rate</h4>
-            <p>{{ player.winrate() }}</p>
-            <h4>Best Game</h4>
-            <p>{{ player.best_game() }}</p>
+        <div class="player-stats">
+            <div>
+                <h4>Total Wins</h4>
+                <p>{{ player.win_count() }}</p>
+            </div>
+            <div>
+                <h4>Total Win Rate</h4>
+                <p>{{ player.winrate() }}</p>
+            </div>
+            <div>
+                <h4>Best Game</h4>
+                <p>{{ player.best_game() }}</p>
+            </div>
         </div>
     </div>   
-    <div>
-        <div>
-            <h4>Win History</h4>
-        </div>
-        <table class="table">
+    <div class="player-history">
+        <div class="table-container">
+            <div class="title-container">
+                <h4>Win History</h4>
+            </div>
+            <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Game</th>
@@ -45,34 +52,35 @@
                     </tr>
                 </tbody>
             {% endif %}
-        </table>
-    </div>
-    <div>
-        <div>
-            <h4>Recent Games</h4>
+            </table>
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Game</th>
-                    <th scope="col">Date</th>
-                    <th scope="col">Win?</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for game in last_ten %}
+        <div class="table-container">
+            <div class="title-container">
+                <h4>Recent Games</h4>
+            </div>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>{{ game.game_name() }}</td>
-                        <td>{{ game.date }}</td>
-                        {% if player.won_game(game) %}
-                            <td>W</td>
-                        {% else %}
-                            <td>L</td>
-                        {% endif %}
+                        <th scope="col">Game</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Win?</th>
                     </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {% for game in last_ten %}
+                        <tr>
+                            <td>{{ game.game_name() }}</td>
+                            <td>{{ game.date }}</td>
+                            {% if player.won_game(game) %}
+                                <td>W</td>
+                            {% else %}
+                                <td>L</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}

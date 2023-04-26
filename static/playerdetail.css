@@ -1,0 +1,48 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.player-intro {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.player-title {
+    margin-bottom: 20px;
+}
+
+.stat {
+    margin: 10px;
+}
+
+.stat p {
+    font-weight: bold;
+}
+
+.best-game {
+    margin-top: 20px;
+}
+
+.player-history {
+    margin-top: 50px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.table-container {
+    
+    width: 100%;
+}
+
+.table {
+    width: 70%;
+}
+
+
+
+
+
+

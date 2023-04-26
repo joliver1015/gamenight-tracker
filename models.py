@@ -90,11 +90,11 @@ class Player(db.Model):
             return "No games played"
     
     def won_game(self, session):
-        for winner in session.winners:
+        winners = session.winners
+        for winner in winners:
             if winner.winner_name == self.player_name:
                 return True
-            else:
-                return False
+        return False
 
     def __repr__(self):
         return f"<Player {self.player_name} Wins {self.win_count()}>"
