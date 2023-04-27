@@ -21,7 +21,11 @@
                     {% for game in games %}
                         <tr>
                             <th scope="row"><a href="/game/{{ game.game_id }}">{{ game.game_name }}</a></th>
-                            <td scope="row">{{ game.best_player() }}</td>
+                            <td>
+                                {% for player in game.best_player() %}
+                                {{player}}
+                                {% endfor %}
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>

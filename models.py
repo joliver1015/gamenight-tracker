@@ -72,9 +72,11 @@ class Player(db.Model):
                             game_list[session.game_name()] = 1
                         else:
                             game_list[session.game_name()] += 1
-            return max(game_list, key=game_list.get)
+            max_wins = max(game_list.values())
+            best_games = [ k for k, v in game_list.items() if v == max_wins]
+            return best_games
         else:
-            return "No games played"
+            return ["No games played"]
     
     def top_games(self):
         if len(self.sessions) > 0:
@@ -118,9 +120,11 @@ class Game(db.Model):
                         player_list[winner.winner_name] = 1
                     else:
                         player_list[winner.winner_name] += 1
-            return max(player_list, key=player_list.get)
+            max_wins = max(player_list.values())
+            best_players = [ k for k, v in player_list.items() if v == max_wins]
+            return best_players
         else:
-            return "No games played yet"
+            return ["No games played yet"]
     
     def leaderboard(self):
         if len(self.sessions) > 0:

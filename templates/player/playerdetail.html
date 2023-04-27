@@ -15,11 +15,15 @@
             </div>
             <div class="stat">
                 <h4>Total Win Rate</h4>
-                <p>{{ player.winrate() }}</p>
+                <p>{{ player.winrate() }}%</p>
             </div>
             <div class="stat">
                 <h4>Best Game</h4>
-                <p class="best-game">{{ player.best_game() }}</p>
+                {% for game in player.best_game() %}
+                <p class="best-game">      
+                    {{game}}     
+                </p>
+                {% endfor %}
             </div>
         </div>
     </div>   
